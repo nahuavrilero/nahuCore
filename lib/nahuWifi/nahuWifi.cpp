@@ -1,5 +1,5 @@
 #include <nahuWifi.h>
-
+bool firstConnectionAttempt = true;
 void NahuWifi::begin(const NahuWifiConfig& config) {
     _config = config;
     WiFi.mode(WIFI_STA);
@@ -10,23 +10,28 @@ void NahuWifi::begin(const NahuWifiConfig& config) {
     }
     WiFi.begin(_config.ssid.c_str(), _config.password.c_str());
     Serial.print("\nConnecting to WiFi...");
-    for (int i=0; i<20; i++)  {
-        delay(500);
-        Serial.print(".");
-    }
-    if (WiFi.status() == WL_CONNECTED) {
-        Serial.println("\nConnected to WiFi!");
-        Serial.print("IP Address: ");
-        Serial.println(WiFi.localIP());
-    } else {
-        Serial.println("\nFailed to connect to WiFi.");
-    }
+    firstConnectionAttempt = true;
     _connectionStarted = millis();
 }
 
 void NahuWifi::update() {
-    if (!isConnected()) {
+    if (!isConnected() && (millis() - _connectionStarted >= _config.timeout)) {
+        if (WiFi.getMode() != WIFI_AP_STA) {
+            Serial.println("\nWiFi connection timed out. Switching to AP mode.");
+            WiFi.mode(WIFI_AP_STA);
+            WiFi.softAP("DummyTEST", "12345678");
+            Serial.println("AP mode started. Connect to the ESP32-BA network. Password: 12345678");
+        }
+       
         handleReconnect();
+    }
+    else if (isConnected()) {
+        if (firstConnectionAttempt) {
+            Serial.println("\nConnected to WiFi!");
+            Serial.print("IP Address: ");
+            Serial.println(getIPAddress());
+        }
+        firstConnectionAttempt = false;
     }
 }
 
@@ -46,4 +51,18 @@ bool NahuWifi::isConnected() const {
 
 IPAddress NahuWifi::getIPAddress() const {
     return WiFi.localIP();
+}
+NahuWifiStatus NahuWifi::getStatus() const {
+    if (WiFi.getMode() == WIFI_AP_STA) {
+        return NahuWifiStatus::AP_MODE;
+    }
+    else if (WiFi.status() == WL_CONNECTED) {
+        return NahuWifiStatus::CONNECTED;
+    }
+    else if (WiFi.status() == WL_IDLE_STATUS || WiFi.status() == WL_DISCONNECTED) {
+        return NahuWifiStatus::DISCONNECTED;
+    }
+    else {
+        return NahuWifiStatus::CONNECTING;
+    }
 }
