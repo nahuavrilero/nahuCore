@@ -29,5 +29,6 @@ class NahuWifi {
        
         uint32_t _connectionStarted = 0;
         uint32_t _lastReconnectAttempt = 0;
+        bool firstConnectionAttempt = true;
         
 };

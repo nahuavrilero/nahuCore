@@ -1,5 +1,5 @@
 #include <nahuWifi.h>
-bool firstConnectionAttempt = true;
+
 void NahuWifi::begin(const NahuWifiConfig& config) {
     _config = config;
     WiFi.mode(WIFI_STA);
