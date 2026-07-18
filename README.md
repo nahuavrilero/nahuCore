@@ -74,4 +74,4 @@ Framework:
 
 ## Licencia
 
-Por el momento este proyecto se publica únicamente con fines personales y de aprendizaje.
+# MIT
