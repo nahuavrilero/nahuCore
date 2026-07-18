@@ -10,7 +10,8 @@ void setup() {
   Serial.begin(115200);
   wifiConfig.ssid = WIFI_SSID; //Input your WiFi SSID here
   wifiConfig.password = WIFI_PASSWORD; //Input your WiFi password here
-  wifiConfig.hostname = AP_SSID; //Input your WiFi hostname here
+  wifiConfig.hostname = ""; //Input your device hostname here (optional)
+  wifiConfig.APHostname = AP_SSID; //Input your WiFi AP hostname hereS
   wifiConfig.APHostname = AP_PASSWORD; //Input your WiFi AP password here
   wifiConfig.reconnectInterval = 10000; //time interval between reconnection attempts (in milliseconds)
   wifiConfig.timeout = 10000; // Connect timeout before switching to AP mode (in milliseconds)
@@ -21,7 +22,7 @@ void setup() {
 void loop() {
  wifi.update(); //Updates the WiFi connection status and handles reconnection. Also prints on connection and disconnection to the Serial monitor.
 
- //vailable functions:
+ //available functions:
  //wifi.isConnected(); // (bool) Returns true if connected to WiFi, false otherwise
  //wifi.getIPAddress(); //Returns the IP address of the device as an IPAddress object
  //wifi.getStatus(); //Returns the current status of the WiFi connection as a NahuWifiStatus enum value (DISCONNECTED, CONNECTING, CONNECTED, AP_MODE)
