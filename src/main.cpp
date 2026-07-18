@@ -9,9 +9,10 @@ NahuWifi wifi;
 
 void setup() {
   Serial.begin(115200);
-  wifiConfig.ssid = WIFI_SSID;
-  wifiConfig.password = WIFI_PASSWORD;
-  wifiConfig.hostname = "ESP32-BA";
+  wifiConfig.ssid = WIFI_SSID; //Input your WiFi SSID here
+  wifiConfig.password = WIFI_PASSWORD; //Input your WiFi password here
+  wifiConfig.hostname = AP_SSID; //Input your WiFi hostname here
+  wifiConfig.APHostname = AP_PASSWORD; //Input your WiFi AP password here
   wifiConfig.reconnectInterval = 10000; // 10 seconds
   wifiConfig.timeout = 10000; // 10 seconds
   wifi.begin(wifiConfig);

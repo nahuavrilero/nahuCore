@@ -10,38 +10,48 @@ void NahuWifi::begin(const NahuWifiConfig& config) {
     }
     WiFi.begin(_config.ssid.c_str(), _config.password.c_str());
     Serial.print("\nConnecting to WiFi...");
-    firstConnectionAttempt = true;
+    
     _connectionStarted = millis();
 }
 
 void NahuWifi::update() {
-    if (!isConnected() && (millis() - _connectionStarted >= _config.timeout)) {
-        if (WiFi.getMode() != WIFI_AP_STA) {
-            Serial.println("\nWiFi connection timed out. Switching to AP mode.");
-            WiFi.mode(WIFI_AP_STA);
-            WiFi.softAP("DummyTEST", "12345678");
-            Serial.println("AP mode started. Connect to the ESP32-BA network. Password: 12345678");
+    if (!isConnected() && _wasConnected) {
+        _wasConnected = false;
+        _connectionStarted = millis(); // Reset the connection start time for the next attempt
+    }
+    else if (!isConnected() && (millis() - _connectionStarted >= _config.timeout)) {
+        if (!_apStarted) {
+            Serial.println("\nFailed to connect to WiFi. Starting AP mode...");
+            startAP();
         }
-       
         handleReconnect();
     }
+    else if(!isConnected() && !_wasConnected) {
+        handleReconnect();  
+    }
+    
     else if (isConnected()) {
-        if (firstConnectionAttempt) {
+        if (!_wasConnected) {
             Serial.println("\nConnected to WiFi!");
             Serial.print("IP Address: ");
             Serial.println(getIPAddress());
+            _wasConnected = true;
         }
-        firstConnectionAttempt = false;
+        if (_apStarted){
+            WiFi.softAPdisconnect(true);
+            WiFi.mode(WIFI_STA);
+            _apStarted = false;
+        }
     }
 }
 
 void NahuWifi::handleReconnect() {
     uint32_t currentMillis = millis();
-    if (currentMillis - _lastReconnectAttempt >= _config.reconnectInterval) {
+    if (currentMillis - _lastReconnectAttempt >= _config.reconnectInterval && getStatus() != NahuWifiStatus::CONNECTING) {
         _lastReconnectAttempt = currentMillis;
         Serial.println("Attempting to reconnect to WiFi...");
         WiFi.begin(_config.ssid.c_str(), _config.password.c_str());
-        _connectionStarted = currentMillis;
+        
     }
 }
 
@@ -53,16 +63,39 @@ IPAddress NahuWifi::getIPAddress() const {
     return WiFi.localIP();
 }
 NahuWifiStatus NahuWifi::getStatus() const {
-    if (WiFi.getMode() == WIFI_AP_STA) {
+    wl_status_t wifiStatus = WiFi.status();
+    if (WiFi.getMode() == WIFI_AP && !isConnected()) {
         return NahuWifiStatus::AP_MODE;
     }
-    else if (WiFi.status() == WL_CONNECTED) {
+    else if (isConnected()) {
         return NahuWifiStatus::CONNECTED;
     }
-    else if (WiFi.status() == WL_IDLE_STATUS || WiFi.status() == WL_DISCONNECTED) {
+    else if (wifiStatus == WL_IDLE_STATUS || 
+             wifiStatus == WL_DISCONNECTED || 
+             wifiStatus == WL_CONNECTION_LOST || 
+             wifiStatus == WL_NO_SSID_AVAIL || 
+             wifiStatus == WL_CONNECT_FAILED
+            ){
         return NahuWifiStatus::DISCONNECTED;
     }
     else {
         return NahuWifiStatus::CONNECTING;
     }
+}
+bool NahuWifi::startAP(){
+    if (WiFi.getMode() != WIFI_AP_STA) {
+        WiFi.mode(WIFI_AP_STA);
+    }
+
+    _apStarted = WiFi.softAP(_config.APHostname.c_str(), _config.APPassword.c_str());
+   
+    
+    
+    if (!_apStarted) {
+        Serial.println("Failed to start AP mode.");
+        return false;
+    }
+    Serial.printf("AP mode started. Connect to the %s network. Password: %s\nIP: ", _config.APHostname.c_str(), _config.APPassword.c_str());
+    Serial.println(WiFi.softAPIP());
+    return true;    
 }

@@ -7,6 +7,8 @@ struct NahuWifiConfig {
     String hostname;
     uint32_t timeout = 10000; // 10 seconds
     uint32_t reconnectInterval = 10000;
+    String APHostname;
+    String APPassword;
     
     
 };
@@ -26,9 +28,11 @@ class NahuWifi {
     private:
         NahuWifiConfig _config;
         void handleReconnect();
-       
+        bool startAP();
         uint32_t _connectionStarted = 0;
         uint32_t _lastReconnectAttempt = 0;
-        bool firstConnectionAttempt = true;
+        bool _firstConnectionAttempt = true;
+        bool _wasConnected = false;
+        bool _apStarted = false;
         
 };
