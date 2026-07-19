@@ -1,5 +1,5 @@
 #include <nahuWifi.h>
-
+#define SERIAL_PREFIX "[nahuWifi] "
 void NahuWifi::begin(const NahuWifiConfig& config) {
     _config = config;
     WiFi.mode(WIFI_STA);
@@ -9,7 +9,7 @@ void NahuWifi::begin(const NahuWifiConfig& config) {
         WiFi.setHostname(_config.hostname.c_str());
     }
     WiFi.begin(_config.ssid.c_str(), _config.password.c_str());
-    Serial.print("\nConnecting to WiFi...");
+    Serial.println(SERIAL_PREFIX "Connecting to WiFi...");
     
     _connectionStarted = millis();
 }
@@ -21,7 +21,7 @@ void NahuWifi::update() {
     }
     else if (!isConnected() && (millis() - _connectionStarted >= _config.timeout)) {
         if (!_apStarted) {
-            Serial.println("\nFailed to connect to WiFi. Starting AP mode...");
+            Serial.printf("\n" SERIAL_PREFIX "Failed to connect to WiFi. Starting AP mode...\n");
             startAP();
         }
         handleReconnect();
@@ -32,9 +32,9 @@ void NahuWifi::update() {
     
     else if (isConnected()) {
         if (!_wasConnected) {
-            Serial.println("\nConnected to WiFi!");
-            Serial.print("IP Address: ");
-            Serial.println(getIPAddress());
+            Serial.println(SERIAL_PREFIX "Connected to WiFi!");
+            Serial.print(SERIAL_PREFIX "IP Address: ");
+            Serial.print(getIPAddress());
             _wasConnected = true;
         }
         if (_apStarted){
@@ -49,7 +49,7 @@ void NahuWifi::handleReconnect() {
     uint32_t currentMillis = millis();
     if (currentMillis - _lastReconnectAttempt >= _config.reconnectInterval && getStatus() != NahuWifiStatus::CONNECTING) {
         _lastReconnectAttempt = currentMillis;
-        Serial.println("Attempting to reconnect to WiFi...");
+        Serial.println(SERIAL_PREFIX "Attempting to reconnect to WiFi...");
         WiFi.begin(_config.ssid.c_str(), _config.password.c_str());
         
     }
@@ -92,10 +92,10 @@ bool NahuWifi::startAP(){
     
     
     if (!_apStarted) {
-        Serial.println("Failed to start AP mode.");
+        Serial.println(SERIAL_PREFIX "Failed to start AP mode.");
         return false;
     }
-    Serial.printf("AP mode started. Connect to the %s network. Password: %s\nIP: ", _config.APHostname.c_str(), _config.APPassword.c_str());
+    Serial.printf(SERIAL_PREFIX "AP mode started. Connect to the %s network. Password: %s\nIP: ", _config.APHostname.c_str(), _config.APPassword.c_str());
     Serial.println(WiFi.softAPIP());
     return true;    
 }
