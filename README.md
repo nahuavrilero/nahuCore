@@ -5,7 +5,7 @@
 > Biblioteca personal en desarrollo para proyectos con ESP32/ESP8266.
 > El objetivo es reducir código repetitivo (boilerplate), unificar APIs entre proyectos y reutilizar módulos que utilizo frecuentemente.
 >
-> No se garantiza compatibilidad entre versiones. La API puede cambiar sin previo aviso mientras el proyecto evoluciona.
+> No se garantiza compatibilidad entre versiones. La API y las bibliotecas puede cambiar sin previo aviso mientras el proyecto evoluciona.
 
 ## Objetivos
 
@@ -21,22 +21,21 @@
 
 - **NahuWifi**
   - Conexión WiFi
-  - Reconexión automática
+  - Reconexión automática con tiempos configurables.
   - Configuración mediante `NahuWifiConfig`
   - Obtención de IP
   - Gestión básica de reconexión
+  - AP fallback
 
 ### 🚧 En desarrollo
 
-- Mejoras en la lógica de reconexión
-- Modo AP de respaldo (Fallback AP)
-- Ejemplos de uso
-- Documentación
+- nahuMQTT
+
 
 ## Bibliotecas planificadas
 
-- NahuWifi
-- NahuMqtt
+- [x] NahuWifi :heavy_check_mark:
+- [ ] NahuMqtt
 - NahuConfig
 - NahuRelay
 - NahuLogger
@@ -65,7 +64,8 @@ Siempre que sea posible se priorizará:
 
 Actualmente orientado a:
 
-- ESP32
+- ESP32:
+  -Probado para ESP32 Dev Module en Arduino IDE 2.x y Platform.IO
 - ESP8266 (cuando sea posible)
 
 Framework:
