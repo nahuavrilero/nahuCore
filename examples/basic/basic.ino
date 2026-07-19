@@ -1,4 +1,4 @@
-//#include <Arduino.h>
+//#include <Arduino.h> //Uncomment this line if you are using PlatformIO. Leave it commented if you are using Arduino IDE.
 #include <nahuWifi.h>
 
 const char* WIFI_SSID = "YOUR_WIFI_SSID";
