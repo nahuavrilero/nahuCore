@@ -1,77 +1,106 @@
 # NahuCore
 
 > ⚠️ **Work in Progress**
->
-> Biblioteca personal en desarrollo para proyectos con ESP32/ESP8266.
-> El objetivo es reducir código repetitivo (boilerplate), unificar APIs entre proyectos y reutilizar módulos que utilizo frecuentemente.
->
-> No se garantiza compatibilidad entre versiones. La API y las bibliotecas puede cambiar sin previo aviso mientras el proyecto evoluciona.
 
-## Objetivos
+NahuCore es una colección de bibliotecas para ESP32 y ESP8266 diseñada para reducir el código repetitivo (boilerplate), unificar APIs y facilitar la reutilización de componentes entre proyectos.
+
+El objetivo no es reemplazar las bibliotecas existentes, sino ofrecer una capa de abstracción simple y consistente sobre ellas.
+
+> **Importante:** Durante esta etapa inicial no se garantiza compatibilidad entre versiones. La API puede cambiar sin previo aviso mientras el proyecto evoluciona.
+
+---
+
+# Objetivos
 
 - Reducir el tiempo de inicio de nuevos proyectos.
 - Centralizar funcionalidades comunes.
 - Mantener una API simple y consistente.
-- Evitar copiar y pegar el mismo código entre proyectos.
+- Evitar copiar y pegar código entre proyectos.
 - Aprender y experimentar con el diseño de bibliotecas reutilizables.
 
-## Estado actual
+---
 
-### ✅ Implementado
+# Estado del proyecto
 
-- **NahuWifi**
-  - Conexión WiFi
-  - Reconexión automática con tiempos configurables.
-  - Configuración mediante `NahuWifiConfig`
-  - Obtención de IP
-  - Gestión básica de reconexión
-  - AP fallback
+## ✅ Implementado
 
-### 🚧 En desarrollo
+### NahuWifi
 
-- nahuMQTT
+- Conexión WiFi simplificada.
+- Reconexión automática configurable.
+- Configuración mediante `NahuWifiConfig`.
+- Obtención de IP.
+- Gestión básica de reconexión.
+- AP Fallback.
 
+> La documentación y los ejemplos de uso se encuentran en el directorio de la biblioteca.
 
-## Bibliotecas planificadas
+---
 
-- [x] NahuWifi :heavy_check_mark:
-- [ ] NahuMqtt
-- NahuConfig
-- NahuRelay
-- NahuLogger
-- NahuButton
-- NahuDisplay
-- NahuSensor
-- NahuOTA
-- NahuWebServer
-- NahuBLE
-- NahuLoRa
-- NahuHomeAssistant
+## 🚧 En desarrollo
 
-## Filosofía del proyecto
+- NahuMqtt
 
-La idea no es reemplazar las bibliotecas existentes, sino construir una capa de abstracción simple y reutilizable sobre ellas, orientada a mis propios proyectos.
+---
+
+# Roadmap
+
+| Biblioteca | Estado | Descripción |
+|------------|:------:|-------------|
+| NahuWifi | ✅ | Gestión simplificada de WiFi |
+| NahuMqtt | 🚧 | Cliente MQTT |
+| NahuConfig | 📋 | Persistencia de configuración |
+| NahuRelay | 📋 | Control de relés |
+| NahuLogger | 📋 | Sistema de logs |
+| NahuButton | 📋 | Manejo de botones |
+| NahuDisplay | 📋 | Abstracción para displays |
+| NahuSensor | 📋 | Lectura unificada de sensores |
+| NahuOTA | 📋 | Actualizaciones OTA |
+| NahuWebServer | 📋 | Servidor web |
+| NahuBLE | 📋 | Bluetooth Low Energy |
+| NahuLoRa | 📋 | Comunicación LoRa |
+| NahuHomeAssistant | 📋 | Integración con Home Assistant |
+
+---
+
+# Filosofía
+
+NahuCore no busca reemplazar las bibliotecas existentes, sino proporcionar una capa de abstracción sencilla y consistente sobre ellas para acelerar el desarrollo de proyectos.
 
 Siempre que sea posible se priorizará:
 
-- APIs simples
-- Bajo acoplamiento
-- Configuración sencilla
-- Reutilización
-- Código fácil de leer y mantener
+- APIs simples.
+- Bajo acoplamiento.
+- Configuración sencilla.
+- Reutilización.
+- Código fácil de leer y mantener.
 
-## Compatibilidad
+---
+
+# Compatibilidad
 
 Actualmente orientado a:
 
-- ESP32:
-  -Probado para ESP32 Dev Module en Arduino IDE 2.x y Platform.IO
+- ESP32
 - ESP8266 (cuando sea posible)
 
-Framework:
+Frameworks soportados:
 
-- Arduino
+- Arduino IDE
+- PlatformIO
 
-## Licencia
+---
 
-# MIT
+# Contribuciones
+
+Las contribuciones son bienvenidas.
+
+Si querés agregar una nueva funcionalidad, corregir un bug o mejorar la documentación, hacé un fork del repositorio y abrí un Pull Request.
+
+Si tenés una idea para una nueva biblioteca o una mejora en la API, también podés abrir un Issue para discutirla.
+
+---
+
+# Licencia
+
+Este proyecto se distribuye bajo la licencia MIT.
