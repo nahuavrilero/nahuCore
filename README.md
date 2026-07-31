@@ -1,6 +1,6 @@
 # nahuCore
 
-![Versión](https://img.shields.io/badge/versión-WIP-yellow)
+![GitHub release](https://img.shields.io/github/v/release/nahuavrilero/nahuCore)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-blue)
 ![Plataformas](https://img.shields.io/badge/plataformas-ESP32%20%7C%20ESP8266-informational)
 ![Frameworks](https://img.shields.io/badge/frameworks-Arduino%20IDE%20%7C%20PlatformIO-lightgrey)

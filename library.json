@@ -28,7 +28,8 @@
     "espressif32"
   ],
   "headers": [
-    "nahuWifi.h"
+    "nahuWifi.h",
+    "nahuButton.h"
   ],
   "export": {
     "exclude": [
