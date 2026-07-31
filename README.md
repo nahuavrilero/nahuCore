@@ -92,7 +92,7 @@ Más ejemplos disponibles en [`/examples`](./examples).
 | Biblioteca        | Estado | Descripción                    |
 | ------------------ | :----: | ------------------------------- |
 | NahuWifi          |   ✅   | Gestión simplificada de WiFi. Conexión, reconexión automática configurable, `NahuWifiConfig`, obtención de IP, AP Fallback. |
-| NahuButton        |   ✅   | Manejo de botones: detección de presión, liberación y clic, con debounce integrado. |
+| NahuButton        |   ✅   | Manejo de botones: detección de presión, liberación, clic y pulsación larga, con debounce integrado. |
 | NahuMqtt          |   🚧   | Cliente MQTT.                   |
 | NahuConfig        |   📋   | Persistencia de configuración.  |
 | NahuRelay         |   📋   | Control de relés.               |
