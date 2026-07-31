@@ -6,6 +6,15 @@ NahuCore es una colección de bibliotecas para ESP32 y ESP8266 diseñada para re
 
 El objetivo no es reemplazar las bibliotecas existentes, sino ofrecer una capa de abstracción simple y consistente sobre ellas.
 
+NahuCore se instala como un único paquete, pero cada biblioteca puede utilizarse de forma independiente incluyendo solo los módulos necesarios para cada proyecto.
+
+Por ejemplo:
+
+```cpp
+#include <nahuWifi.h>
+#include <nahuButton.h>
+
+```
 > **Importante:** Durante esta etapa inicial no se garantiza compatibilidad entre versiones. La API puede cambiar sin previo aviso mientras el proyecto evoluciona.
 
 ---
@@ -33,11 +42,11 @@ El objetivo no es reemplazar las bibliotecas existentes, sino ofrecer una capa d
 - Gestión básica de reconexión.
 - AP Fallback.
 
-> La documentación y los ejemplos de uso se encuentran en el directorio /examples/nahuWifi.
+> La documentación y los ejemplos de uso se encuentran en el directorio `/examples/nahuWifi.`
 
 ### NahuButton
 
-- Detecta click, botón presionado/soltado.
+- Detección de presión, liberación y clic
 - Debounce integrado.
   
 ---
