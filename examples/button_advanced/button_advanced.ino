@@ -34,7 +34,7 @@ void loop(){
     if (boton1.isPressed()){
         Serial.println("Presionando"); //Cuidado! Se cumple siempre mientras el botón está presionado. 
     }
-    if (boton1.wasLongPressed){
+    if (boton1.wasLongPressed()){
         Serial.println("Pulsación larga.");
     }
 }
