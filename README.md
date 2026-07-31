@@ -53,11 +53,11 @@ El objetivo no es reemplazar las bibliotecas existentes, sino ofrecer una capa d
 | Biblioteca | Estado | Descripción |
 |------------|:------:|-------------|
 | NahuWifi | ✅ | Gestión simplificada de WiFi |
+| NahuButton | ✅ | Manejo de botones |
 | NahuMqtt | 🚧 | Cliente MQTT |
 | NahuConfig | 📋 | Persistencia de configuración |
 | NahuRelay | 📋 | Control de relés |
 | NahuLogger | 📋 | Sistema de logs |
-| NahuButton | 📋 | Manejo de botones |
 | NahuDisplay | 📋 | Abstracción para displays |
 | NahuSensor | 📋 | Lectura unificada de sensores |
 | NahuOTA | 📋 | Actualizaciones OTA |
