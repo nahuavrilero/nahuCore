@@ -43,8 +43,46 @@ void NahuButton::setLongPressTime(uint32_t time){
 void NahuButton::setDebounceTime(uint32_t time){
     _config.debounceTime = time;
 }
+void NahuButton::update() {
+    _pressedEvent = false;
+    _clickedEvent = false;
+    _releasedEvent = false;
+    _longPressedEvent = false;
 
+    _rawPressed = readPin();
 
+    if (_rawPressed != _lastRawPressed) {
+        _lastRawPressed = _rawPressed;
+        _lastRawPressedTime = millis();
+    }
+
+    if (millis() - _lastRawPressedTime >= _config.debounceTime &&
+        _stablePressed != _rawPressed) {
+
+        _stablePressed = _rawPressed;
+
+        if (_stablePressed) {
+            _pressedEvent = true;
+            _lastPressedTime = millis();
+            _longPressStarted = true;
+        } else {
+            _releasedEvent = true;
+            _clickedEvent = !_wasLongPressed;
+            _wasLongPressed = false;
+            _longPressStarted = false;
+        }
+    }
+
+    if (_longPressStarted) {
+        if (millis() - _lastPressedTime >= _config.longPressTime &&
+            _stablePressed) {
+
+            _longPressedEvent = true;
+            _longPressStarted = false;
+            _wasLongPressed = true;
+        }
+    }
+}
 bool NahuButton::wasPressed(){
    return _pressedEvent;
 }
