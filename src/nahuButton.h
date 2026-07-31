@@ -6,11 +6,11 @@ enum class ButtonMode{
 };
 
 struct NahuButtonConfig {
-    uint32_t debounceTime = 30;
+    uint32_t debounceTime = 20;
     uint8_t pin;
     uint32_t longPressTime = 1000;
     bool activeLow = true;
-    ButtonMode mode = ButtonMode::notset;
+    ButtonMode mode = ButtonMode::pullup;
 };
 
 class NahuButton{
@@ -36,14 +36,17 @@ class NahuButton{
         uint32_t _pressedTime;
         
 
-        bool _longPressStarted = false;
+        
         bool _pressedEvent = false;
         bool _releasedEvent = false;
+        bool _clickedEvent = false;
         bool _longPressedEvent = false;
+
+        bool _longPressStarted = false;
         bool _rawPressed = false;
         bool _lastRawPressed = false;
         bool _stablePressed = false;
-        bool _clickedEvent = false;
+        bool _wasLongPressed = false;
         bool readPin();
 
 };
