@@ -33,8 +33,13 @@ El objetivo no es reemplazar las bibliotecas existentes, sino ofrecer una capa d
 - Gestión básica de reconexión.
 - AP Fallback.
 
-> La documentación y los ejemplos de uso se encuentran en el directorio de la biblioteca.
+> La documentación y los ejemplos de uso se encuentran en el directorio /examples/nahuWifi.
 
+### NahuButton
+
+- Detecta click, botón presionado/soltado.
+- Debounce integrado.
+  
 ---
 
 ## 🚧 En desarrollo
