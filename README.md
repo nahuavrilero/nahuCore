@@ -69,9 +69,11 @@ void setup() {
 }
 
 void loop() {
-    wifi.update();
+    wifi.update(); // llamar en cada iteración; reintenta aunque el estado quede en CONNECTING
 }
 ```
+
+En ESP8266 la biblioteca evita escrituras repetidas de credenciales en flash durante los reintentos. Si la clave del AP está vacía, el AP queda abierto; una clave no vacía necesita al menos 8 caracteres. Al conectar a la red principal, el AP de respaldo se cierra.
 
 Más ejemplos disponibles en [`/examples`](./examples).
 
@@ -128,7 +130,7 @@ Siempre que sea posible se priorizará:
 Actualmente orientado a:
 
 - ESP32
-- ESP8266 (cuando sea posible)
+- ESP8266 (NahuWifi; NahuButton permite pulldown interno únicamente en GPIO16).
 
 Frameworks soportados:
 
