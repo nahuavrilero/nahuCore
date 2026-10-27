@@ -1,7 +1,7 @@
 {
   "name": "NahuCore",
   "version": "0.1.0",
-  "description": "Biblioteca modular para reducir código repetitivo en proyectos Arduino con ESP32.",
+  "description": "Biblioteca modular para ESP32 y ESP8266",
   "keywords": [
     "esp32",
     "arduino",
@@ -25,7 +25,8 @@
     "arduino"
   ],
   "platforms": [
-    "espressif32"
+    "espressif32",
+    "espressif8266"
   ],
   "headers": [
     "nahuWifi.h",
