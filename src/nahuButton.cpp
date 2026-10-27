@@ -18,7 +18,15 @@ void NahuButton::begin(){
         pinMode(_config.pin, INPUT_PULLUP);
         break;
     case ButtonMode::pulldown:
+#if defined(ESP8266)
+        if (_config.pin == 16) pinMode(_config.pin, INPUT_PULLDOWN_16);
+        else {
+            pinMode(_config.pin, INPUT);
+            Serial.println("[nahuButton] ESP8266: pulldown interno solo en GPIO16; usar resistencia externa.");
+        }
+#else
         pinMode(_config.pin, INPUT_PULLDOWN);
+#endif
         break;
     case ButtonMode::notset:
         pinMode(_config.pin, INPUT);
